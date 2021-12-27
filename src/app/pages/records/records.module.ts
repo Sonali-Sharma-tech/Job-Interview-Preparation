@@ -8,7 +8,7 @@ import { RecordsRoutingModule } from './records-routing.module';
   declarations: [],
   imports: [
     CommonModule,
-    RecordsRoutingModule
-  ]
+    RecordsRoutingModule,
+  ],
 })
 export class RecordsModule { }
