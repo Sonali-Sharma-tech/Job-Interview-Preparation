@@ -11,6 +11,16 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
+      path: 'start',
+      loadChildren: () => import('./home/home.module')
+        .then(m => m.HomeModule),
+    },
+    {
+      path: 'records',
+      loadChildren: () => import('./records/records.module')
+        .then(m => m.RecordsModule),
+    },
+    {
       path: 'dashboard',
       component: ECommerceComponent,
     },
@@ -68,15 +78,15 @@ const routes: Routes = [{
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),
     },
-    {
-      path: '',
-      redirectTo: 'dashboard',
-      pathMatch: 'full',
-    },
-    {
-      path: '**',
-      component: NotFoundComponent,
-    },
+    // {
+    //   path: '',
+    //   redirectTo: 'dashboard',
+    //   pathMatch: 'full',
+    // },
+    // {
+    //   path: '**',
+    //   component: NotFoundComponent,
+    // },
   ],
 }];
 
