@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
@@ -45,7 +46,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private themeService: NbThemeService,
               private userService: UserData,
               private layoutService: LayoutService,
-              private breakpointService: NbMediaBreakpointsService) {
+              private breakpointService: NbMediaBreakpointsService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -88,7 +90,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   navigateHome() {
-    this.menuService.navigateHome();
+    // this.menuService.navigateHome();
+    this.router.navigate(['/start']);
     return false;
   }
 }

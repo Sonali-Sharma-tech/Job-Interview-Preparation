@@ -11,6 +11,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
     icon: 'folder-outline',
     link: '/records',
   },
+  {
+    title: 'Study Topics',
+    icon: 'book-open-outline',
+    link: '/topics',
+  },
   // {
   //   title: 'E-commerce',
   //   icon: 'shopping-cart-outline',

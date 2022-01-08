@@ -21,6 +21,11 @@ const routes: Routes = [{
         .then(m => m.RecordsModule),
     },
     {
+      path: 'topics',
+      loadChildren: () => import('./topics/topics.module')
+        .then(m => m.TopicsModule),
+    },
+    {
       path: 'dashboard',
       component: ECommerceComponent,
     },
@@ -78,15 +83,15 @@ const routes: Routes = [{
       loadChildren: () => import('./miscellaneous/miscellaneous.module')
         .then(m => m.MiscellaneousModule),
     },
-    // {
-    //   path: '',
-    //   redirectTo: 'dashboard',
-    //   pathMatch: 'full',
-    // },
-    // {
-    //   path: '**',
-    //   component: NotFoundComponent,
-    // },
+    {
+      path: '',
+      redirectTo: 'start',
+      pathMatch: 'full',
+    },
+    {
+      path: '**',
+      component: NotFoundComponent,
+    },
   ],
 }];
 

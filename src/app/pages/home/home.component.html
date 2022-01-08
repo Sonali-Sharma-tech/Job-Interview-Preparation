@@ -1,1 +1,34 @@
-<p>home works</p>
+<div class="row">
+    <div class="col-12 text-center">
+        <h3>
+            {{todayTime}}
+        </h3>
+    </div>
+    <div class="col-12 col-md-4 offset-md-4 text-center">
+        <nb-card class="counter-card">
+            <nb-card-body class="d-flex justify-content-center align-items-center fa-4x text-primary">
+                {{counter}}
+            </nb-card-body>
+        </nb-card>
+        <!-- <div class="add-topic d-flex justify-content-center ">
+            <input type="text" class="form-control" placeholder="Add Topic">
+        </div> -->
+        <div class=" d-flex justify-content-center mt-3">
+            <button class="btn btn-info" nbButton status="basic" (click)="startStopCounter()">
+                <span *ngIf="!isStarted">
+                    <nb-icon icon="play-circle-outline" pack="eva" class="m-1"></nb-icon> Start
+                </span>
+                <span *ngIf="isStarted">
+                    <nb-icon icon="stop-circle-outline" pack="eva" class="m-1"></nb-icon> Stop
+                </span>
+            </button>
+            <button class="btn btn-info ml-3" nbButton status="basic" (click)="resetCounter()">
+                <span>
+                    <nb-icon icon="refresh-outline" pack="eva" class="m-1"></nb-icon> Reset
+                </span>
+            </button>
+                
+           
+        </div>
+    </div>
+</div>
