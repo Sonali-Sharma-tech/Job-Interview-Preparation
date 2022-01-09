@@ -1,9 +1,7 @@
+import { FormsModule } from './forms/forms.module';
 import { TopicsComponent } from './topics/topics.component';
-import { RecordsModule } from './records/records.module';
-import { TopicsModule } from './topics/topics.module';
-import { HomeModule } from './home/home.module';
 import { NgModule } from '@angular/core';
-import { NbMenuModule, NbCardModule, NbIconModule } from '@nebular/theme';
+import { NbMenuModule, NbCardModule, NbIconModule, NbDialogModule, NbTagComponent } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -14,6 +12,7 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home/home.component';
 import { RecordsComponent } from './records/records.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -26,6 +25,9 @@ import { RecordsComponent } from './records/records.component';
     MiscellaneousModule,
     NbCardModule,
     NbIconModule,
+    NbDialogModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
     PagesComponent,
@@ -33,6 +35,7 @@ import { RecordsComponent } from './records/records.component';
     TopicsComponent,
     RecordsComponent,
   ],
+  entryComponents: [NbTagComponent],
 })
 export class PagesModule {
 }
