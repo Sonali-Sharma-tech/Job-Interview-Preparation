@@ -11,7 +11,6 @@ export class CustomTagComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.text);
   }
 
   // on click remove tag
