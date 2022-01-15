@@ -5,49 +5,70 @@
         </h3>
     </div>
     <div class="col-12 col-md-4 offset-md-4 text-center">
-        <nb-card class="counter-card">
-            <nb-card-body class="d-flex justify-content-center align-items-center fa-4x text-primary">
+       
+        <!-- <nb-card class="counter-card"> -->
+            <circle-progress
+            [percent]="progress"
+            [radius]="100"
+            [outerStrokeWidth]="10"
+            [innerStrokeWidth]="10"
+            [space] = "-10"
+            [outerStrokeColor]="'#4882c2'"
+            [innerStrokeColor]="'#e7e8ea'"
+            [titleFontSize]= "24"
+            [unitsFontSize]= "0"
+            [showSubtitle] = "false"
+            [animation]="true"
+            [animationDuration]="300"
+            [startFromZero]="false"
+            [responsive]="true"
+            [titleFormat]="formatTime"
+            ></circle-progress>
+            <!-- <nb-card-body class="d-flex justify-content-center align-items-center fa-4x text-primary">
                 {{counter}}
-            </nb-card-body>
-        </nb-card>
-        <!-- <div class="add-topic d-flex justify-content-center ">
-            <input type="text" class="form-control" placeholder="Add Topic">
-        </div> -->
+            </nb-card-body> -->
+        <!-- </nb-card> -->
+    
+       
         <div class=" d-flex justify-content-center mt-3">
-            <button class="btn btn-info" nbButton status="basic" (click)="open(addDetails)">
-                <span *ngIf="!isStarted">
-                    <nb-icon icon="play-circle-outline" pack="eva" class="m-1"></nb-icon> Start
-                </span>
-                <span *ngIf="isStarted">
-                    <nb-icon icon="stop-circle-outline" pack="eva" class="m-1"></nb-icon> Stop
+            <button *ngIf="!isStarted" class="btn btn-info"   (click)="open(addDetails)">
+                <span >
+                    <nb-icon icon="play-circle-outline" pack="eva"></nb-icon> Start
                 </span>
             </button>
-            <button class="btn btn-info ml-3" nbButton status="basic" (click)="resetCounter()">
+            <button *ngIf="isStarted" class="btn btn-info" (click)="isStarted = false">
+                <span >
+                    <nb-icon icon="stop-circle-outline" pack="eva"></nb-icon> Stop
+                </span>
+            </button>
+            <button class="btn btn-info ml-3"   (click)="resetCounter()">
                 <span>
                     <nb-icon icon="refresh-outline" pack="eva" class="m-1"></nb-icon> Reset
                 </span>
             </button>
         </div>
     </div>
+   
 </div>
 
 <ng-template #addDetails let-data let-ref="dialogRef">
-    <nb-card>
+    <nb-card >
       <nb-card-body>
         <div class="row task-name">
             <label class="col-12">Add Task</label>
-            <input class="col-12" nbInput type="text">
+            <input class="col-12 form-control" nbInput type="text">
         </div>
         <div class="row tag-name">
             <label class="col-12">Add Tag</label>
-            <nb-tag-list (tagRemove)="onTagRemove($event)">
-                <nb-tag *ngFor="let tag of tags" [text]="tag?.tagName" removable="tags.length > 1"></nb-tag>
-                <input type="text" nbTagInput (tagAdd)="onTagAdd($event)" fullWidth>
-              </nb-tag-list>
-        </div>
+           
+              <ngx-custom-tag-list>
+                <ngx-custom-tag *ngFor="let tree of trees" [text]="tree" (tagRemove)="onTagRemove($event)">
+                </ngx-custom-tag>
+            </ngx-custom-tag-list>
+            </div>
         <div class="row comments">
             <label class="col-12">Comments</label>
-            <textarea class="col-12" nbInput rows="5" cols="10"></textarea>
+            <textarea class="col-12 form-control" nbInput rows="5" cols="10"></textarea>
         </div>
         <!-- <div class="rating">
             <label>Rating</label>

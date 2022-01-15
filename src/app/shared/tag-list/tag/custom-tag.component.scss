@@ -1,12 +1,9 @@
 @import '~bootstrap/scss/mixins/breakpoints';
 @import '~@nebular/theme/styles/global/breakpoints';
-@import '../../@theme/styles/themes';
+@import '../../../@theme/styles/themes';
 
 @include nb-install-component() {
-    .counter-card {
-        height: 330px;
-        border-radius: 50%;
+    .border-radius-5 {
+        border-radius: 5%;
     }
-   
-   
 }

@@ -1,7 +1,10 @@
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { CustomTagListComponent } from './../shared/tag-list/custom-tag-list.component';
+import { CustomTagComponent } from './../shared/tag-list/tag/custom-tag.component';
 import { FormsModule } from './forms/forms.module';
 import { TopicsComponent } from './topics/topics.component';
 import { NgModule } from '@angular/core';
-import { NbMenuModule, NbCardModule, NbIconModule, NbDialogModule, NbTagComponent } from '@nebular/theme';
+import { NbMenuModule, NbCardModule, NbIconModule, NbDialogModule } from '@nebular/theme';
 
 import { ThemeModule } from '../@theme/theme.module';
 import { PagesComponent } from './pages.component';
@@ -10,7 +13,6 @@ import { ECommerceModule } from './e-commerce/e-commerce.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home/home.component';
 import { RecordsComponent } from './records/records.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -28,14 +30,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbDialogModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
+    NgCircleProgressModule.forRoot({}),
   ],
   declarations: [
     PagesComponent,
-    HomeComponent,
     TopicsComponent,
     RecordsComponent,
   ],
-  entryComponents: [NbTagComponent],
+  entryComponents: [
+    CustomTagListComponent,
+    CustomTagComponent,
+  ],
 })
 export class PagesModule {
 }

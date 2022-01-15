@@ -1,3 +1,4 @@
+import { SharedModule } from './shared/shared.module';
 /**
  * @license
  * Copyright Akveo. All Rights Reserved.
@@ -39,6 +40,7 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    SharedModule,
   ],
   bootstrap: [AppComponent],
 })

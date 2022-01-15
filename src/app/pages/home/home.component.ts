@@ -1,16 +1,16 @@
 import { TaskDetailsModel } from './task-details.model';
 import { UtilityService } from './../../@core/utils/utility.service';
-import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NbDialogService, NbTagComponent, NbTagInputAddEvent } from '@nebular/theme';
-
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NbDialogService, NbTagComponent, NbTagListComponent, NbTagInputAddEvent, NbTagInputDirective } from '@nebular/theme';
+const TREES = [ 'Prometheus', 'Methuselah', 'Gran Abuelo', 'Scofield Juniper', 'Panke Baobab', 'Jaya Sri Maha Bodhi' ];
 @Component({
   selector: 'ngx-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
   @ViewChild('addDetails') addDetailsTempl;
+  @ViewChild(NbTagInputDirective, { read: ElementRef }) tagInput: ElementRef<HTMLInputElement>;
   public todayTime: string;
   public counter: string;
   public isStarted: boolean = false;
@@ -23,11 +23,16 @@ export class HomeComponent implements OnInit {
     {id: 2, title: 'Number two'},
     {id: 3, title: 'Number three'},
   ];
-  tags = [];
+  // tags = [];
   tasks = [];
   comments = [];
   selectedTagItems = [];
+  // tags: Set<string> = new Set([]);
+  tags: Set<string> = new Set<string>();
+  options: string[] = TREES;
   tasksDetails: TaskDetailsModel[];
+  trees = [...TREES];
+  progress: number = 0;
   constructor(private utility: UtilityService,
     private dialogService: NbDialogService) { }
 
@@ -43,6 +48,11 @@ export class HomeComponent implements OnInit {
     this.isStarted = !this.isStarted;
     if (this.isStarted) {
       this.timer = setInterval(() => {
+        if (this.progress <= 100) {
+          this.progress = this.progress + Math.round(60 / 100);
+        } else {
+          clearInterval(this.timer);
+        }
        this.counter = this.setCounter();
        if (this.counter === '0 : 00') {
          this.isStarted = false;
@@ -90,20 +100,45 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  onTagRemove(tagToRemove: NbTagComponent): void {
-    this.tags = this.tags.filter(o =>  o.tag !== tagToRemove.text);
-  }
+  // onTagRemove(tagToRemove: NbTagComponent): void {
+    // this.tags = this.tags.filter(o =>  o.tag !== tagToRemove.text);
+    // this.tags.delete(tagToRemove.text);
+  // }
 
-  onTagAdd({ value, input }: NbTagInputAddEvent): void {
-    if (value) {
-      this.tags['id'] = this.tags.length + 1;
-      this.tags['tagName'] = value;
-    }
-    input.nativeElement.value = '';
-  }
+  // onTagAdd({ value, input }: NbTagInputAddEvent): void {
+    // if (value) {
+    //   this.tags['id'] = this.tags.length + 1;
+    //   this.tags['tagName'] = value;
+    // }
+  //   console.log('tags');
+  //   if ( value) {
+  //    this.tags.add(value);
+  //   }
+  //   input.nativeElement.value = '';
+  // }
 
   saveDetails() {
     this.startStopCounter();
+  }
+  // onTagRemove(tagToRemove: NbTagComponent): void {
+  //   this.tags.delete(tagToRemove.text);
+  //   this.options.push(tagToRemove.text);
+  // }
+
+  formatTime(percent) {
+    const value = Math.floor((60 - percent) / 60) + ':' + (60 - percent) % 60;
+    return value;
+  }
+  onTagAdd(value: string): void {
+    if (value) {
+      this.tags.add(value);
+      this.options = this.options.filter(o => o !== value);
+    }
+    this.tagInput.nativeElement.value = '';
+  }
+
+  onTagRemove(tagToRemove: string): void {
+    this.trees = this.trees.filter(t => t !== tagToRemove);
   }
 }
 
