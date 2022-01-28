@@ -12,7 +12,9 @@ import { CommonModule } from '@angular/common';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
-import { NgCircleProgressModule } from 'ng-circle-progress';
+// import { NgCircleProgressModule } from 'ng-circle-progress';
+import { TagInputModule } from 'ngx-chips';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -20,7 +22,6 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     HomeRoutingModule,
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     NbCardModule,
     NbButtonModule,
     NbTagModule,
@@ -29,7 +30,8 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     NbAutocompleteModule,
     SharedModule,
     NbIconModule,
-    NgCircleProgressModule,
+    TagInputModule,
+    NgbModule,
   ],
   declarations: [HomeComponent],
   providers: [UtilityService],

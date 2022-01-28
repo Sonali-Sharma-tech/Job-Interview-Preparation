@@ -19,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
@@ -28,8 +30,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     NbCardModule,
     NbIconModule,
     NbDialogModule.forRoot(),
-    ReactiveFormsModule,
-    FormsModule,
     NgCircleProgressModule.forRoot({}),
   ],
   declarations: [

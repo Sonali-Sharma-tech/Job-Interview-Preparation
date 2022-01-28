@@ -6,13 +6,13 @@
     </div>
     <div class="col-12 col-md-4 offset-md-4 text-center">
        
-        <!-- <nb-card class="counter-card"> -->
-            <circle-progress
+        <nb-card class="counter-card">
+            <!-- <circle-progress
             [percent]="progress"
             [radius]="100"
-            [outerStrokeWidth]="10"
+            [outerStrokeWidth]="40"
             [innerStrokeWidth]="10"
-            [space] = "-10"
+            [space] = "5"
             [outerStrokeColor]="'#4882c2'"
             [innerStrokeColor]="'#e7e8ea'"
             [titleFontSize]= "24"
@@ -23,11 +23,11 @@
             [startFromZero]="false"
             [responsive]="true"
             [titleFormat]="formatTime"
-            ></circle-progress>
-            <!-- <nb-card-body class="d-flex justify-content-center align-items-center fa-4x text-primary">
+            ></circle-progress> -->
+            <nb-card-body class="d-flex justify-content-center align-items-center fa-4x text-primary">
                 {{counter}}
-            </nb-card-body> -->
-        <!-- </nb-card> -->
+            </nb-card-body>
+        </nb-card>
     
        
         <div class=" d-flex justify-content-center mt-3">
@@ -36,7 +36,7 @@
                     <nb-icon icon="play-circle-outline" pack="eva"></nb-icon> Start
                 </span>
             </button>
-            <button *ngIf="isStarted" class="btn btn-info" (click)="isStarted = false">
+            <button *ngIf="isStarted" class="btn btn-info" (click)="startStopCounter()">
                 <span >
                     <nb-icon icon="stop-circle-outline" pack="eva"></nb-icon> Stop
                 </span>
@@ -52,32 +52,60 @@
 </div>
 
 <ng-template #addDetails let-data let-ref="dialogRef">
-    <nb-card >
+    <nb-card>
       <nb-card-body>
-        <div class="row task-name">
-            <label class="col-12">Add Task</label>
-            <input class="col-12 form-control" nbInput type="text">
-        </div>
-        <div class="row tag-name">
-            <label class="col-12">Add Tag</label>
-           
-              <ngx-custom-tag-list>
-                <ngx-custom-tag *ngFor="let tree of trees" [text]="tree" (tagRemove)="onTagRemove($event)">
-                </ngx-custom-tag>
-            </ngx-custom-tag-list>
+          <form>
+            <div class="row task-name mt-2">
+                <label class="col-12 mb-2">Add Task</label>
+                <input class="col-12 mb-2 form-control" name="taskName" type="text" [(ngModel)]="task.taskName">
             </div>
-        <div class="row comments">
-            <label class="col-12">Comments</label>
-            <textarea class="col-12 form-control" nbInput rows="5" cols="10"></textarea>
-        </div>
-        <!-- <div class="rating">
-            <label>Rating</label>
-        </div> -->
+            <div class="row tag-name mt-2">
+                <label class="col-12 mb-2">Add Tag</label>
+               
+                <!-- <ngx-custom-tag-list class="mb-2">
+                    <ngx-custom-tag *ngFor="let tree of trees" [text]="tree" (tagRemove)="onTagRemove($event)">
+                    </ngx-custom-tag>
+                </ngx-custom-tag-list> -->
+                <!-- <nb-tag-list (tagRemove)="onTagRemove($event)">
+                    <nb-tag *ngFor="let tag of tags" [text]="tag" removable></nb-tag>
+                    <input type="text" nbTagInput (tagAdd)="onTagAdd($event)" [ngModel]="searchText" (keyup)="searchTags(searchText)" fullWidth>
+                    <div class="tag-list"></div>
+                </nb-tag-list> -->
+                <tag-input
+                [ngModel]="task.tagNames"
+                [onlyFromAutocomplete]="true"
+                [allowDupes]="false"
+                [inputClass]="['form-control', 'tag-control']"
+                (onAdd)="addTags($event)"
+                (onRemove)="removeTags($event)"
+                >
+                <tag-input-dropdown
+                [autocompleteItems]="tags"
+                >
+                </tag-input-dropdown>
+                </tag-input>
+            </div>
+            <div class="row comments mt-2">
+                <label class="col-12 mb-2">Comments</label>
+                <textarea class="col-12 mb-2 form-control" name="comments" rows="5" cols="10" [(ngModel)]="task.comments"></textarea>
+            </div>
+            <div class="rating">
+                <label>Rating</label>
+                <div>
+                    <ngb-rating [(rate)]="task.rating"  [max]="5"></ngb-rating>
+                </div>
+                
+            </div>
+          </form>
+    </nb-card-body>
+    <nb-card-footer>
         <div class="submit">
-            <button class="btn btn-info" nbButton status="basic" (click)="ref.close();saveDetails()">
+            <button class="btn btn-info" nbButton status="basic" (click)="ref.close();save()">
                 Save
             </button>
         </div>
-      </nb-card-body>
+    </nb-card-footer>
+      
+     
     </nb-card>
   </ng-template>

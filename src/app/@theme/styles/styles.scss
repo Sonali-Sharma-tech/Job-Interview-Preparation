@@ -30,4 +30,8 @@
   @include ngx-pace-theme();
 
   @include nb-overrides();
+
+ nb-card {
+   padding: 15px 10px !important;
+ }
 };

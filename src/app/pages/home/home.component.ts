@@ -1,8 +1,7 @@
-import { TaskDetailsModel } from './task-details.model';
+import { TaskDetailsModel } from './../../@core/Models/task-details.model';
 import { UtilityService } from './../../@core/utils/utility.service';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { NbDialogService, NbTagComponent, NbTagListComponent, NbTagInputAddEvent, NbTagInputDirective } from '@nebular/theme';
-const TREES = [ 'Prometheus', 'Methuselah', 'Gran Abuelo', 'Scofield Juniper', 'Panke Baobab', 'Jaya Sri Maha Bodhi' ];
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NbDialogService, NbTagComponent, NbTagInputAddEvent, NbTagInputDirective } from '@nebular/theme';
 @Component({
   selector: 'ngx-home',
   templateUrl: './home.component.html',
@@ -18,21 +17,20 @@ export class HomeComponent implements OnInit {
   public counterSec = 60;
   public counterTime;
   public timer;
-  tagItems = [
-    {id: 1, title: 'Number one'},
-    {id: 2, title: 'Number two'},
-    {id: 3, title: 'Number three'},
-  ];
-  // tags = [];
-  tasks = [];
+
+  tasks: TaskDetailsModel[] = [];
+  task: TaskDetailsModel = {
+   taskName : 'Javascript Concepts',
+   tagNames : ['Theory', 'Work'],
+   comments : 'Reading from official doc',
+   rating : 4,
+  };
   comments = [];
   selectedTagItems = [];
   // tags: Set<string> = new Set([]);
-  tags: Set<string> = new Set<string>();
-  options: string[] = TREES;
-  tasksDetails: TaskDetailsModel[];
-  trees = [...TREES];
-  progress: number = 0;
+  tags = ['Theory', 'Data Structure'];
+  searchText: string;
+  currentRate = 8;
   constructor(private utility: UtilityService,
     private dialogService: NbDialogService) { }
 
@@ -48,11 +46,6 @@ export class HomeComponent implements OnInit {
     this.isStarted = !this.isStarted;
     if (this.isStarted) {
       this.timer = setInterval(() => {
-        if (this.progress <= 100) {
-          this.progress = this.progress + Math.round(60 / 100);
-        } else {
-          clearInterval(this.timer);
-        }
        this.counter = this.setCounter();
        if (this.counter === '0 : 00') {
          this.isStarted = false;
@@ -100,45 +93,26 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  // onTagRemove(tagToRemove: NbTagComponent): void {
-    // this.tags = this.tags.filter(o =>  o.tag !== tagToRemove.text);
-    // this.tags.delete(tagToRemove.text);
-  // }
-
-  // onTagAdd({ value, input }: NbTagInputAddEvent): void {
-    // if (value) {
-    //   this.tags['id'] = this.tags.length + 1;
-    //   this.tags['tagName'] = value;
-    // }
-  //   console.log('tags');
-  //   if ( value) {
-  //    this.tags.add(value);
-  //   }
-  //   input.nativeElement.value = '';
-  // }
-
-  saveDetails() {
-    this.startStopCounter();
-  }
-  // onTagRemove(tagToRemove: NbTagComponent): void {
-  //   this.tags.delete(tagToRemove.text);
-  //   this.options.push(tagToRemove.text);
-  // }
-
-  formatTime(percent) {
-    const value = Math.floor((60 - percent) / 60) + ':' + (60 - percent) % 60;
-    return value;
-  }
-  onTagAdd(value: string): void {
-    if (value) {
-      this.tags.add(value);
-      this.options = this.options.filter(o => o !== value);
+  // save popup details
+  save() {
+    if (this.saveTagDetails()) {
+      this.startStopCounter();
     }
-    this.tagInput.nativeElement.value = '';
   }
 
-  onTagRemove(tagToRemove: string): void {
-    this.trees = this.trees.filter(t => t !== tagToRemove);
+  saveTagDetails() {
+    this.tasks.push(this.task);
+    console.log(this.task);
+    console.log(this.tasks);
+    return true;
+  }
+  addTags(e) {
+    console.log(e);
+    this.task.tagNames.push(e);
+  }
+  removeTags(e) {
+    console.log(e);
+    this.task.tagNames = this.task.tagNames.filter(name => name !== e);
   }
 }
 
