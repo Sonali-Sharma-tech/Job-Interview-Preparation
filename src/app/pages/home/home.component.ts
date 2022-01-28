@@ -102,16 +102,16 @@ export class HomeComponent implements OnInit {
 
   saveTagDetails() {
     this.tasks.push(this.task);
-    console.log(this.task);
-    console.log(this.tasks);
+    // console.log(this.task);
+    // console.log(this.tasks);
     return true;
   }
   addTags(e) {
-    console.log(e);
+    // console.log(e);
     this.task.tagNames.push(e);
   }
   removeTags(e) {
-    console.log(e);
+    // console.log(e);
     this.task.tagNames = this.task.tagNames.filter(name => name !== e);
   }
 }
