@@ -6,7 +6,7 @@
     </div>
     <div class="col-12 col-md-4 offset-md-4 text-center">
        
-        <nb-card class="counter-card">
+        <!-- <nb-card class="counter-card"> -->
             <!-- <circle-progress
             [percent]="progress"
             [radius]="100"
@@ -24,24 +24,46 @@
             [responsive]="true"
             [titleFormat]="formatTime"
             ></circle-progress> -->
-            <nb-card-body class="d-flex justify-content-center align-items-center fa-4x text-primary">
+            <!-- card view -->
+            <!-- <nb-card-body class="d-flex justify-content-center align-items-center fa-4x text-primary">
                 {{counter}}
-            </nb-card-body>
-        </nb-card>
-    
+            </nb-card-body> -->
+            <!-- card view -->
+            <!-- Chronograph -->
+            <div class="timer-group">
+                <!-- <div class="timer hour">
+                  <div class="hand"><span></span></div>
+                  <div class="hand"><span></span></div>
+                </div> -->
+                <div #minuteHand class="timer minute">
+                  <div  class="hand"><span ></span></div>
+                  <div  class="hand "><span ></span></div>
+                </div>
+                <div  #secondHand class="timer second">
+                  <div  class="hand"><span ></span></div>
+                  <div  class="hand"><span ></span></div>
+                </div>
+                <div class="face">
+                  <p #timerValue id="lazy">00:{{pomodoroInterval}}:00</p>  
+                </div>
+              </div>
+            
+        <!-- </nb-card> -->
+    <!-- Chronograph -->
        
         <div class=" d-flex justify-content-center mt-3">
-            <button *ngIf="!isStarted" class="btn btn-info"   (click)="open(addDetails)">
+            <!-- <button *ngIf="!isStarted" class="btn btn-info" (click)="open(addDetails)"> -->
+            <button *ngIf="!isStarted" class="btn btn-info" (click)="startPomodoro()">
                 <span >
                     <nb-icon icon="play-circle-outline" pack="eva"></nb-icon> Start
                 </span>
             </button>
-            <button *ngIf="isStarted" class="btn btn-info" (click)="startStopCounter()">
+            <button *ngIf="isStarted" class="btn btn-info" (click)="stopPomodoro()">
                 <span >
                     <nb-icon icon="stop-circle-outline" pack="eva"></nb-icon> Stop
                 </span>
             </button>
-            <button class="btn btn-info ml-3"   (click)="resetCounter()">
+            <button class="btn btn-info ml-3"   (click)="resetPomodoro()">
                 <span>
                     <nb-icon icon="refresh-outline" pack="eva" class="m-1"></nb-icon> Reset
                 </span>
@@ -71,7 +93,7 @@
                     <input type="text" nbTagInput (tagAdd)="onTagAdd($event)" [ngModel]="searchText" (keyup)="searchTags(searchText)" fullWidth>
                     <div class="tag-list"></div>
                 </nb-tag-list> -->
-                <tag-input
+                <!-- <tag-input
                 [ngModel]="task.tagNames"
                 [onlyFromAutocomplete]="true"
                 [allowDupes]="false"
@@ -83,19 +105,13 @@
                 [autocompleteItems]="tags"
                 >
                 </tag-input-dropdown>
-                </tag-input>
+                </tag-input> -->
             </div>
             <div class="row comments mt-2">
                 <label class="col-12 mb-2">Comments</label>
                 <textarea class="col-12 mb-2 form-control" name="comments" rows="5" cols="10" [(ngModel)]="task.comments"></textarea>
             </div>
-            <div class="rating">
-                <label>Rating</label>
-                <div>
-                    <ngb-rating [(rate)]="task.rating"  [max]="5"></ngb-rating>
-                </div>
-                
-            </div>
+           
           </form>
     </nb-card-body>
     <nb-card-footer>
@@ -108,4 +124,4 @@
       
      
     </nb-card>
-  </ng-template>
+</ng-template>
